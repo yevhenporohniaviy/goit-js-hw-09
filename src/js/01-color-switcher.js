@@ -10,10 +10,15 @@ const bodyStyles = document.getElementsByTagName('body')[0].style;
 
 let timer;
 
+stopButton.setAttribute('disabled', true);
+
 startButton.addEventListener('click', () => {
   const handleColor = () => {
     bodyStyles.backgroundColor = getRandomHexColor();
   };
+
+  startButton.setAttribute('disabled', true);
+  stopButton.removeAttribute('disabled');
 
   if (!timer) {
     handleColor();
@@ -24,6 +29,9 @@ startButton.addEventListener('click', () => {
 });
 
 stopButton.addEventListener('click', () => {
+  stopButton.setAttribute('disabled', true);
+  startButton.removeAttribute('disabled');
+
   clearInterval(timer);
   timer = null;
 });

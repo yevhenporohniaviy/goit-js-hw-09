@@ -1,6 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
+const timePicker = document.querySelector('#datetime-picker');
 const daysField = document.querySelector('[data-days]');
 const hoursField = document.querySelector('[data-hours]');
 const minutesField = document.querySelector('[data-minutes]');
@@ -56,20 +57,22 @@ function convertMs(ms) {
 
 startBtn.addEventListener('click', () => {
   if (!timer) {
+    timePicker.setAttribute('disabled', 'true');
     toggleDisableStartBtn();
     timer = setInterval(() => {
       const ms = selectedTime.getTime() - new Date().getTime();
       if (ms <= 0) {
+        timePicker.removeAttribute('disabled', 'true');
         clearInterval(timer);
         timer = null;
         return;
       }
       const { days, hours, minutes, seconds } = convertMs(ms);
 
-      daysField.innerHTML = addLeadingZero(days)
-      hoursField.innerHTML = addLeadingZero(hours)
-      minutesField.innerHTML = addLeadingZero(minutes)
-      secondsField.innerHTML = addLeadingZero(seconds)
+      daysField.innerHTML = addLeadingZero(days);
+      hoursField.innerHTML = addLeadingZero(hours);
+      minutesField.innerHTML = addLeadingZero(minutes);
+      secondsField.innerHTML = addLeadingZero(seconds);
     }, 1000);
   }
 });
